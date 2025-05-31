@@ -449,12 +449,19 @@ function App() {
         </div>
         <div className="text-center text-white small mt-3 opacity-75"
           style={{ fontFamily: "'Orbitron', 'Share Tech Mono', 'Segoe UI', Arial, sans-serif" }}>
-          <span style={{
-            color: "#00e1ff",
-            textShadow: "0 0 8px #00e1ff, 0 0 2px #fff"
-          }}>
-            Buy me a <span onclick="window.location='buymeacoffee.com/edwincheah.mp4'" className="text-warning">coffee</span>
-          </span>
+          <div className="text-center mt-4">
+  <a
+    href="https://www.buymeacoffee.com/yourusername"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+      alt="Buy Me A Coffee"
+      style={{ height: "45px", width: "162px", borderRadius: "8px", boxShadow: "0 0 8px #00e1ff50" }}
+    />
+  </a>
+</div>
         </div>
       </div>
     </div>
