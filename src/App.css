@@ -36,3 +36,40 @@
     transform: rotate(360deg);
   }
 }
+.space-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #05081a;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite alternate, drift 20s linear infinite;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.5; }
+  50% { opacity: 1; }
+  to { opacity: 0.5; }
+}
+
+@keyframes drift {
+  from { transform: translateY(0); }
+  to { transform: translateY(100vh); }
+}
+
+input, button, select {
+  border-radius: 0 !important;
+  font-family: 'Press Start 2P', monospace !important;
+  image-rendering: pixelated;
+  font-size: 0.85rem !important;
+}
+
+.card {
+  border-radius: 0 !important;
+}
