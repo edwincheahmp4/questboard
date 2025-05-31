@@ -453,7 +453,7 @@ function App() {
             color: "#00e1ff",
             textShadow: "0 0 8px #00e1ff, 0 0 2px #fff"
           }}>
-            A project by <span className="text-warning">Edwin Cheah</span>
+            Buy me a <span onclick="window.location='buymeacoffee.com/edwincheah.mp4'" className="text-warning">coffee</span>
           </span>
         </div>
       </div>
