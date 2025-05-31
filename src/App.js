@@ -253,7 +253,7 @@ function App() {
   {`
     .custom-input::placeholder {
       color: #fff;
-      opacity: 1;
+      opacity: 0.5;
     }
   `}
 </style>
