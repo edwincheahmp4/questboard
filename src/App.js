@@ -249,6 +249,15 @@ function App() {
   }}
 >
 
+  <style>
+  {`
+    .custom-input::placeholder {
+      color: #fff;
+      opacity: 1;
+    }
+  `}
+</style>
+  
   <span role="img" aria-label="rocket" style={{ fontSize: "2rem", marginRight: 8 }}>🚀</span>
   QUESTBOARD
 </h1>
@@ -257,7 +266,7 @@ function App() {
               <div className="mb-3">
                 <input
                   type="email"
-                  className="form-control"
+                  className="form-control custom-input"
                   style={{ background: "#151f33", color: "#fff", borderColor: "#00e1ff" }}
                   placeholder="Email"
                   value={email}
@@ -268,7 +277,7 @@ function App() {
               <div className="mb-3">
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control custom-input"
                   style={{ background: "#151f33", color: "#fff", borderColor: "#00e1ff" }}
                   placeholder="Password"
                   value={password}
