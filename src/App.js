@@ -3,6 +3,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { supabase } from './supabaseClient';
 
+const adjectives = ['Happy', 'Clever', 'Brave', 'Swift', 'Calm', 'Bright', 'Lucky', 'Bold', 'Kind', 'Wise'];
+const animals = ['Panda', 'Tiger', 'Eagle', 'Fox', 'Lion', 'Wolf', 'Bear', 'Hawk', 'Otter', 'Dolphin'];
+
+function generateUsername() {
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const animal = animals[Math.floor(Math.random() * animals.length)];
+  return adj + animal;
+}
+
 function StarField({ count = 100 }) {
   const stars = Array.from({ length: count }).map((_, i) => {
     const size = Math.random() * 2 + 1;
@@ -133,19 +142,38 @@ function App() {
 
   // Auth functions
   const signUp = async (e) => {
-    e.preventDefault();
-    setError('');
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) setError(error.message);
-    else {
-      setError('You are now ready to Log in.');
-      if (data && data.user) {
-        await supabase.from('profiles').insert([
-          { id: data.user.id, exp: 0, level: 1 }
-        ]);
+  e.preventDefault();
+  setError('');
+  const { data, error } = await supabase.auth.signUp({ email, password });
+  if (error) setError(error.message);
+  else {
+    setError('You are now ready to Log in.');
+    if (data && data.user) {
+      let username = generateUsername();
+
+      // Ensure username is unique (optional: retry if duplicate found)
+      let { data: existing } = await supabase
+        .from('profiles')
+        .select('username')
+        .eq('username', username)
+        .single();
+
+      while (existing) {
+        username = generateUsername();
+        const res = await supabase
+          .from('profiles')
+          .select('username')
+          .eq('username', username)
+          .single();
+        existing = res.data;
       }
+
+      await supabase.from('profiles').insert([
+        { id: data.user.id, username, exp: 0, level: 1 }
+      ]);
     }
-  };
+  }
+};
 
   const signIn = async (e) => {
     e.preventDefault();
@@ -166,7 +194,7 @@ function App() {
       if (user) {
         const { data } = await supabase
           .from('profiles')
-          .select('exp, level')
+          .select('exp, level, username')
           .eq('id', user.id);
         if (data && data.length > 0) setProfile(data[0]);
       }
@@ -276,7 +304,7 @@ function App() {
               <div className="d-flex align-items-center justify-content-between mb-3">
                 <span className="small" style={{ color: "#00e1ff" }}>
                   <i className="bi bi-person-circle me-1"></i>
-                  {user.email}
+                  {profile.username || user.email}
                 </span>
                 <button onClick={signOut} className="btn btn-link px-0" style={{ color: "#00e1ff" }}>Sign Out</button>
               </div>
